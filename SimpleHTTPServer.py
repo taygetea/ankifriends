@@ -38,9 +38,9 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     """
 
     server_version = "SimpleHTTP/" + __version__
-    def __init__(self, *args, **kwargs):
-        super(SimpleHTTPRequestHandler, self).__init__(self, *args, **kwargs)
-        self.queryparams = ""
+    # def __init__(self, *args, **kwargs):
+    #     super(SimpleHTTPRequestHandler, self).__init__(self, *args, **kwargs)
+    #     self.queryparams = ""
     def do_GET(self):
         """Serve a GET request."""
         f = self.send_head()
