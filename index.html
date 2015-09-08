@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" charset="utf-8">
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1684070025155741',
+                status: true,
+                cookie: true,
+                xfbml: true
+            });
+        };
+
+        (function (doc) {
+            var js;
+            var id = 'facebook-jssdk';
+            var ref = doc.getElementsByTagName('script')[0];
+            if (doc.getElementById(id)) {
+                return;
+            }
+            js = doc.createElement('script');
+            js.id = id;
+            js.async = true;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            ref.parentNode.insertBefore(js, ref);
+        } (document));
+        
+        FB.Event.subscribe('auth.authResponseChange', function (response) {
+            if (response.status === 'connected') {
+                alert("Successfully connected to Facebook!");
+            }
+            else if (response.status === 'not_authorized') {
+                alert("Login failed!");
+            } else {
+                alert("Unknown error!");
+            }
+        });
+
+        function Login() {
+            FB.login(function (response) {
+                if (response.authResponse) {
+                    FB.api('/me', function (response) {
+                        document.getElementById("displayName").innerHTML = response.name;
+                        document.getElementById("userName").innerHTML = response.username;
+                        document.getElementById("userID").innerHTML = response.id;
+                        document.getElementById("userEmail").innerHTML = response.email;
+                        FB.api('/me/picture?type=normal', function (response) {
+                            document.getElementById("profileImage").setAttribute("src", response.data.url);
+                        }); 
+                    });
+                } else {
+                    alert("Login attempt failed!");
+                }
+            }, { scope: 'email,user_photos,publish_actions' });
+        }
+    </script>
+    <title></title>
+    
+</head>
+<body>
+    page is displaying stuff
+    <div id="fb-root"></div>
+    <input type="button" value="Login" onclick="Login();" />
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
